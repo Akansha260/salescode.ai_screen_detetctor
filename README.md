@@ -12,14 +12,23 @@ The final solution uses a hybrid model combining handcrafted computer vision fea
 ## Repository
 
 ```
-predict.py
-requirements.txt
-hybrid_screen_classifier.pkl
-hybrid_pca.pkl
+predict.py                       Final inference script
+benchmark_latency.py             Latency measurement script
+requirements.txt                 Dependencies
+hybrid_screen_classifier.pkl     Trained model bundle (classifier + scaler + PCA + CNN weights)
+README.md                        This file
+Report.md                        Technical report
+
+results/
+└── latency_hybrid.txt           Latency measurement results
 
 training/
-experiments/
-REPORT.md
+└── hybrid_svm.py                Final model training script
+
+plots/
+├── classifier_chart.png         Classifier comparison
+├── confusion_matrix.png         Validation confusion matrix
+└── misclassified_images.png     Remaining validation errors
 ```
 
 ---
@@ -59,14 +68,11 @@ where
 
 ---
 
-## Files
+## Measuring latency
 
-| File                   | Description                                                   |
-|------------------------|---------------------------------------------------------------|
-| predict.py             | Final inference script                                        |
-| training/hybrid_svm.py | Model training notebook                                       |
-| plots/                 | Classifiers comparisons,confusion matrix,misclassified images |
-| REPORT.md              | Technical report                                              |
----
+```bash
+python benchmark_latency.py image.jpg        
+python benchmark_latency.py folder/         
+```
 
-For methodology, experiments and evaluation, see **REPORT.md**.
+For full methodology, experiments, latency, cost, and evaluation, see Report.md.
