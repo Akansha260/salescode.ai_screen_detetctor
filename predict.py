@@ -264,11 +264,6 @@ def load_model():
         sys.exit(1)
 
     with open(MODEL_PATH, "rb") as f:
-        # Bundle was saved from a Colab GPU training session, so it
-        # contains CUDA tensors. pickle.load() internally calls
-        # torch.load() when it hits them; on a CPU-only machine this
-        # fails unless map_location="cpu" is forced. Temporarily
-        # monkey-patch torch.load for the duration of this load.
         original_load = torch.load
         torch.load = lambda *a, **kw: original_load(*a, **{**kw, "map_location": "cpu"})
         try:
@@ -300,10 +295,6 @@ def predict_probability(image_path, bundle, effnet, embed_transform):
             "(unreadable, corrupt, or below minimum patch size)"
         )
 
-    # Impute rgb_fringe NaN (low-res images) with the training-set median,
-    # exactly as done during training -- using a different imputation
-    # strategy at inference time than at training time would silently
-    # shift the feature distribution the model was calibrated on.
     nan_mask = np.isnan(hc_feats)
     if nan_mask.any():
         hc_feats = hc_feats.copy()
@@ -369,12 +360,9 @@ def main():
         per_image_latencies_ms.append(latency * 1000)
 
         if is_batch:
-            # Batch mode: filename + probability on stdout, one per line.
             label = "SCREEN" if prob >= 0.5 else "REAL"
             print(f"{os.path.basename(path)}: {prob:.4f}  [{label}]")
         else:
-            # Single-image mode: EXACTLY the assignment spec -- print
-            # ONLY the bare probability to stdout, nothing else.
             print(f"{prob:.4f}")
             print(f"[debug] label = {'SCREEN' if prob >= 0.5 else 'REAL'}", file=sys.stderr)
             print(f"[debug] inference latency = {latency*1000:.1f} ms",
