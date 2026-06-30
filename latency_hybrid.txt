@@ -1,0 +1,28 @@
+Hybrid model inference latency (CPU)
+==================================================
+LATENCY REPORT -- 17 images, 1 run each
+==================================================
+FOR REAL IMAGES:
+
+Total (sum):       75972.0 ms (75.97 s)
+Mean per image:    4468.94 ms
+Median per image:  3810.07 ms
+Min:               1992.76 ms
+Max:               7613.41 ms
+Std:               1788.54 ms
+
+Per-image breakdown saved separately -> latency_per_real.csv
+
+==================================================
+LATENCY REPORT -- 14 images, 1 run each
+==================================================
+FOR SCREEN IMAGES:
+
+Total (sum of all images):  46280.2 ms  (46.28 s)
+Mean per image:              3305.73 ms
+Median per image:            2911.48 ms
+Min:                         1929.92 ms
+Max:                         6664.17 ms
+Std:                         1271.32 ms
+
+Per-image breakdown saved separately -> latency_per_screen.csv
