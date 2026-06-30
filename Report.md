@@ -64,8 +64,7 @@ Among the classifiers evaluated, the non-linear SVM (RBF kernel) achieved the be
 
 ![Confusion Matrix](plots/confusion_matrix.png)
 
-Validation set confusion matrix for the final hybrid model (29/31 correct). The two errors are one screen image predicted as real and one real image predicted as screen — a balanced error profile with no systematic bias toward either class.
----
+*Validation set confusion matrix for the final hybrid model (29/31 correct). The two errors are one screen image predicted as real and one real image predicted as screen — a balanced error profile with no systematic bias toward either class.*
 
 # Classifier Comparison
 
